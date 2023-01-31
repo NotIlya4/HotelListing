@@ -1,5 +1,7 @@
-using Api.Data;
+using Api.Configurations;
 using Api.Data.Context;
+using Api.Interfaces;
+using Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -24,6 +26,8 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin()
             .AllowAnyMethod());
 });
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
 builder.Host.UseSerilog(
     (context, logger) =>

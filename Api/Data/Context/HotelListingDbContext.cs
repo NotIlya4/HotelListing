@@ -18,19 +18,19 @@ public class HotelListingDbContext : DbContext
         modelBuilder.Entity<Country>().HasData(
             new Country()
             {
-                CountryId = 1,
+                Id = 1,
                 Name = "Jamaica",
                 ShortName = "JM"
             },
             new Country()
             {
-                CountryId = 2,
+                Id = 2,
                 Name = "Bahamas",
                 ShortName = "BS"
             },
             new Country()
             {
-                CountryId = 3,
+                Id = 3,
                 Name = "Cayman Islands",
                 ShortName = "CI"
             });
@@ -38,7 +38,7 @@ public class HotelListingDbContext : DbContext
         modelBuilder.Entity<Hotel>().HasData(
             new Hotel()
             {
-                HotelId = 1,
+                Id = 1,
                 Name = "Sandals Resort and Spa",
                 Address = "Negril",
                 CountryId = 1,
@@ -46,7 +46,7 @@ public class HotelListingDbContext : DbContext
             },
             new Hotel()
             {
-                HotelId = 2,
+                Id = 2,
                 Name = "Comfort Suites",
                 Address = "George Town",
                 CountryId = 3,
@@ -54,7 +54,7 @@ public class HotelListingDbContext : DbContext
             },
             new Hotel()
             {
-                HotelId = 3,
+                Id = 3,
                 Name = "Grand Palladiun",
                 Address = "Nassua",
                 CountryId = 2,
