@@ -1,4 +1,4 @@
-﻿namespace Api.Data.Entity;
+﻿namespace Api.Entities;
 
 public class Country
 {

@@ -1,6 +1,6 @@
-using Api.Data.Entity;
+using Api.Dtos.Country;
+using Api.Entities;
 using Api.Interfaces;
-using Api.Models.Country;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 

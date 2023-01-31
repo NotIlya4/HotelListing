@@ -1,4 +1,4 @@
-﻿namespace Api.Models.Country;
+﻿namespace Api.Dtos.Country;
 
 public class GetCountryDto : BaseCountryDto
 {

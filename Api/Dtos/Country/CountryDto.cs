@@ -1,6 +1,6 @@
-﻿using Api.Models.Hotel;
+﻿using Api.Dtos.Hotel;
 
-namespace Api.Models.Country;
+namespace Api.Dtos.Country;
 
 public class CountryDto : BaseCountryDto
 {

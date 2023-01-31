@@ -1,5 +1,5 @@
 using Api.Configurations;
-using Api.Data.Context;
+using Api.DbContextes;
 using Api.Interfaces;
 using Api.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+builder.Services.AddScoped<IHotelsRepository, IHotelsRepository>();
 
 builder.Host.UseSerilog(
     (context, logger) =>

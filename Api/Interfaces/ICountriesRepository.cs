@@ -1,4 +1,4 @@
-﻿using Api.Data.Entity;
+﻿using Api.Entities;
 
 namespace Api.Interfaces;
 

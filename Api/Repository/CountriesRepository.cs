@@ -1,5 +1,5 @@
-﻿using Api.Data.Context;
-using Api.Data.Entity;
+﻿using Api.DbContextes;
+using Api.Entities;
 using Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

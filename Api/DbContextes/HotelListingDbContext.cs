@@ -1,7 +1,7 @@
-﻿using Api.Data.Entity;
+﻿using Api.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Data.Context;
+namespace Api.DbContextes;
 
 public class HotelListingDbContext : DbContext
 {
