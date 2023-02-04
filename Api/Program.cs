@@ -1,8 +1,14 @@
+using System.Text;
 using Api.Configurations;
 using Api.DbContextes;
+using Api.Entities;
 using Api.Interfaces;
 using Api.Repository;
+using Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +24,7 @@ builder.Services.AddDbContext<HotelListingDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-{
+builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll",
         b => 
             b.AllowAnyHeader()
@@ -28,7 +33,31 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
-builder.Services.AddScoped<IHotelsRepository, IHotelsRepository>();
+builder.Services.AddScoped<IHotelsRepository, HotelRepository>();
+builder.Services.AddIdentityCore<ApiUser>()
+    .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("HotelListingApi")
+    .AddEntityFrameworkStores<HotelListingDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddAuthentication(options => {
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options => {
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]
+                                   ?? throw new NullReferenceException()))
+    };
+});
 
 builder.Host.UseSerilog(
     (context, logger) =>

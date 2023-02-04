@@ -1,5 +1,6 @@
 ﻿using Api.Dtos.Country;
 using Api.Dtos.Hotel;
+using Api.Dtos.Users;
 using Api.Entities;
 using AutoMapper;
 
@@ -16,5 +17,7 @@ public class AutoMapperConfig : Profile
         
         CreateMap<Hotel, HotelDto>().ReverseMap();
         CreateMap<Hotel, CreateHotelDto>().ReverseMap();
+
+        CreateMap<ApiUser, ApiUserDto>().ReverseMap();
     }
 }
