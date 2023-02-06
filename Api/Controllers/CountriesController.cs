@@ -12,11 +12,13 @@ public class CountriesController : ControllerBase
 {
     private readonly ICountriesRepository _countriesRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<CountriesController> _logger;
 
-    public CountriesController(ICountriesRepository countriesRepository, IMapper mapper)
+    public CountriesController(ICountriesRepository countriesRepository, IMapper mapper, ILogger<CountriesController> logger)
     {
         _countriesRepository = countriesRepository;
         _mapper = mapper;
+        _logger = logger;
     }
 
     // GET: api/Countries
@@ -34,7 +36,11 @@ public class CountriesController : ControllerBase
     {
         Country? country = await _countriesRepository.GetDetails(id);
 
-        if (country is null) return NotFound();
+        if (country is null)
+        {
+            _logger.LogWarning("No record found in {0} with id={1}", nameof(GetCountry), id);
+            return NotFound();
+        };
 
         CountryDto record = _mapper.Map<CountryDto>(country);
 
